@@ -1,0 +1,31 @@
+--use proton-clang 13 for the compilation
+
+export ARCH=arm64
+
+export CROSS_COMPILE=home/j/proton-clang/bin/aarch64-linux-gnu-
+export CROSS_COMPILE_ARM32=home/j/proton-clang/bin/arm-linux-gnueabi-
+export TC_DIR="$HOME/proton-clang"
+
+make menuconfig -j$(nproc --all) O=out \
+                PATH="$TC_DIR/bin:$PATH" \
+                CC="clang" \
+                CROSS_COMPILE=$TC_DIR/bin/aarch64-linux-gnu- \
+                CROSS_COMPILE_ARM32=$TC_DIR/bin/arm-linux-gnueabi- \
+                LLVM=llvm- \
+                AR=llvm-ar \
+                NM=llvm-nm \
+                OBJCOPY=llvm-objcopy \
+                OBJDUMP=llvm-objdump \
+                STRIP=llvm-strip 
+			
+make -j$(nproc --all) O=out \
+                PATH="$TC_DIR/bin:$PATH" \
+                CC="clang" \
+                CROSS_COMPILE=$TC_DIR/bin/aarch64-linux-gnu- \
+                CROSS_COMPILE_ARM32=$TC_DIR/bin/arm-linux-gnueabi- \
+                LLVM=llvm- \
+                AR=llvm-ar \
+                NM=llvm-nm \
+                OBJCOPY=llvm-objcopy \
+                OBJDUMP=llvm-objdump \
+                STRIP=llvm-strip 
